@@ -112,6 +112,9 @@ class Dropbox
 
         //Set the access token
         $this->setAccessToken($app->getAccessToken());
+        
+        //set business user id
+        $this->setBusinessUserId($app->getBusinessUserId());
 
         //Make the HTTP Client
         $httpClient = DropboxHttpClientFactory::make($config['http_client_handler']);
@@ -259,9 +262,12 @@ class Dropbox
     {
         //Access Token
         $accessToken = $this->getAccessToken() ? $this->getAccessToken() : $accessToken;
+        
+        //Business User Id
+        $businessUserId = $this->getBusinessUserId() ? $this->getBusinessUserId() : null;
 
         //Make a DropboxRequest object
-        $request = new DropboxRequest($method, $endpoint, $accessToken, $endpointType, $params);
+        $request = new DropboxRequest($method, $endpoint, $accessToken, $endpointType, $params, [], null, $businessUserId);
 
         //Make a DropboxResponse object if a response should be saved to the file
         $response = $responseFile ? new DropboxResponseToFile($request, $responseFile) : null;
@@ -291,6 +297,30 @@ class Dropbox
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
+
+        return $this;
+    }
+    
+    /**
+     * Get the Business Id.
+     *
+     * @return string Access Token
+     */
+    public function getBusinessUserId()
+    {
+        return $this->businessUserId;
+    }
+
+    /**
+     * Set the Access Token.
+     *
+     * @param string $accessToken Access Token
+     *
+     * @return \Kunnu\Dropbox\Dropbox Dropbox Client
+     */
+    public function setBusinessUserId($businessUserId)
+    {
+        $this->businessUserId = $businessUserId;
 
         return $this;
     }

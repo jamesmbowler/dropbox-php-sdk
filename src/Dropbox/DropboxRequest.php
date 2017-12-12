@@ -17,6 +17,13 @@ class DropboxRequest
      * @var string
      */
     protected $accessToken = null;
+    
+    /**
+     * Business User Id to use for this request
+     *
+     * @var string
+     */
+    protected $businessUserId = null;
 
     /**
      * The HTTP method for this request
@@ -88,11 +95,12 @@ class DropboxRequest
      * @param mixed  $params       Request Params
      * @param array  $headers      Headers to send along with the Request
      */
-    public function __construct($method, $endpoint, $accessToken, $endpointType = "api", array $params = [], array $headers = [], $contentType = null)
+    public function __construct($method, $endpoint, $accessToken, $endpointType = "api", array $params = [], array $headers = [], $contentType = null, $businessUserId = null)
     {
         $this->setMethod($method);
         $this->setEndpoint($endpoint);
         $this->setAccessToken($accessToken);
+        $this->setBusinessUserId($businessUserId);
         $this->setEndpointType($endpointType);
         $this->setParams($params);
         $this->setHeaders($headers);
@@ -146,6 +154,29 @@ class DropboxRequest
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
+
+        return $this;
+    }
+    /**
+     * Get Access Token for the Request
+     *
+     * @return string
+     */
+    public function getBusinessUserId()
+    {
+        return $this->businessUserId;
+    }
+
+    /**
+     * Set Access Token for the Request
+     *
+     * @param string
+     *
+     * @return \Kunnu\Dropbox\DropboxRequest
+     */
+    public function setBusinessUserId($businessUserId)
+    {
+        $this->businessUserId = $businessUserId;
 
         return $this;
     }

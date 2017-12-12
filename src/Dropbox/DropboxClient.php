@@ -95,6 +95,18 @@ class DropboxClient
     {
         return ['Authorization' => 'Bearer '. $accessToken];
     }
+    
+    /**
+     * Get the Business User Id with the Business User Id.
+     *
+     * @param string $businessUserId Business User Id
+     *
+     * @return array  Header Dropbox-Api-Select-User
+     */
+    protected function buildBusinessUserHeader($businessUserId = "")
+    {
+        return ['Dropbox-Api-Select-User'=> $businessUserId];
+    }
 
     /**
      * Get the Content Type Header.
@@ -219,6 +231,9 @@ class DropboxClient
             $this->buildContentTypeHeader($request->getContentType()),
             $request->getHeaders()
             );
+        if($request->getBusinessUserId()){
+         $headers = array_merge($this->buildBusinessUserHeader($request->getBusinessUserId()), $headers); 
+        }
 
         //Return the URL, Headers and Request Body
         return [$url, $headers, $requestBody];
